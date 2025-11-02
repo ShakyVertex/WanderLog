@@ -44,7 +44,7 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(({ posts }) => {
     }
     
     setSearching(false);
-  }, [debouncedSearchTerm, posts, setQuery, filterPosts, setSearching, addToHistory, filterPostsByQuery]);
+  }, [debouncedSearchTerm, posts]); // Remove context functions from dependencies
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

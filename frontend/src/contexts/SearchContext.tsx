@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useCallback, ReactNode } from 'react';
 import { Post } from '../types';
 
 interface SearchState {
@@ -82,13 +82,22 @@ interface SearchProviderProps {
   children: ReactNode;
 }
 
+// Initialize search history outside component to avoid re-reading localStorage
+const getInitialSearchHistory = (): string[] => {
+  try {
+    return JSON.parse(localStorage.getItem('wanderlog-search-history') || '[]');
+  } catch {
+    return [];
+  }
+};
+
 export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(searchReducer, {
     query: '',
     filteredPosts: [],
     allPosts: [],
     isSearching: false,
-    searchHistory: JSON.parse(localStorage.getItem('wanderlog-search-history') || '[]')
+    searchHistory: getInitialSearchHistory()
   });
 
   const setQuery = (query: string) => {
@@ -107,12 +116,15 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
     dispatch({ type: 'SET_SEARCHING', payload: searching });
   };
 
-  const addToHistory = (query: string) => {
+  const addToHistory = useCallback((query: string) => {
     if (query.trim()) {
       dispatch({ type: 'ADD_TO_HISTORY', payload: query.trim() });
-      localStorage.setItem('wanderlog-search-history', JSON.stringify(state.searchHistory));
+      // Use a timeout to batch localStorage updates
+      setTimeout(() => {
+        localStorage.setItem('wanderlog-search-history', JSON.stringify(state.searchHistory));
+      }, 100);
     }
-  };
+  }, [state.searchHistory]);
 
   const clearSearch = () => {
     dispatch({ type: 'CLEAR_SEARCH' });

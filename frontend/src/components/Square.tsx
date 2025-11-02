@@ -35,11 +35,12 @@ const Square: React.FC<SquareProps> = React.memo(({ onRefresh }) => {
     } finally {
       setLoading(false);
     }
-  }, [setSearchPosts]);
+  }, []); // Remove setSearchPosts from dependencies
 
   useEffect(() => {
     fetchPosts();
-  }, [fetchPosts]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
 
   const handlePostClick = useCallback((post: Post) => {
     setSelectedPost(post);
