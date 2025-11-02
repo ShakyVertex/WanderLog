@@ -18,7 +18,7 @@ const postSchema = new mongoose.Schema({
   },
   images: [{
     type: String,
-    maxLength: 6
+    maxLength: 500
   }],
   createdAt: {
     type: Date,
