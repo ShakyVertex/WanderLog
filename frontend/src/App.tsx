@@ -31,7 +31,17 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-        <h1>WanderLog</h1>
+        <div className="header-top">
+          <h1>WanderLog</h1>
+          <a 
+            href="https://github.com/ShakyVertex/WanderLog" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="github-button"
+          >
+            GitHub
+          </a>
+        </div>
         <nav className="tab-navigation">
           <button 
             className={`tab-button ${activeTab === 'square' ? 'active' : ''}`}
