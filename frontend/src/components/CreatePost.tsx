@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getApiUrl } from '../config/api';
 
 interface CreatePostProps {
   onPostCreated: () => void;
@@ -32,7 +33,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
         formData.append('images', image);
       });
 
-      const response = await fetch('http://localhost:5001/api/posts', {
+      const response = await fetch(getApiUrl('/api/posts'), {
         method: 'POST',
         body: formData,
       });

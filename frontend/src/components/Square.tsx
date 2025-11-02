@@ -4,6 +4,7 @@ import PostDetail from './PostDetail';
 import SearchBar from './SearchBar';
 import { Post } from '../types';
 import { useSearch } from '../contexts/SearchContext';
+import { getApiUrl } from '../config/api';
 
 interface SquareProps {
   onRefresh?: () => void;
@@ -19,7 +20,7 @@ const Square: React.FC<SquareProps> = React.memo(({ onRefresh }) => {
   const fetchPosts = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5001/api/posts');
+      const response = await fetch(getApiUrl('/api/posts'));
       if (response.ok) {
         const data = await response.json();
         setAllPosts(data);

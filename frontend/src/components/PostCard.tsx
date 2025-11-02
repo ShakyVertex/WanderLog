@@ -1,5 +1,6 @@
 import React from 'react';
 import { Post } from '../types';
+import { getImageUrl } from '../config/api';
 
 interface PostCardProps {
   post: Post;
@@ -27,7 +28,7 @@ const PostCard: React.FC<PostCardProps> = React.memo(({ post, onClick }) => {
           {post.images.slice(0, 3).map((image, index) => (
             <img
               key={index}
-              src={`http://localhost:5001${image}`}
+              src={getImageUrl(image)}
               alt={`Post image ${index + 1}`}
             />
           ))}

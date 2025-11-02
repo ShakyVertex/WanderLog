@@ -1,5 +1,6 @@
 import React from 'react';
 import { Post } from '../types';
+import { getImageUrl } from '../config/api';
 
 interface PostDetailProps {
   post: Post;
@@ -51,7 +52,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ post, onBack }) => {
             {post.images.map((image, index) => (
               <img
                 key={index}
-                src={`http://localhost:5001${image}`}
+                src={getImageUrl(image)}
                 alt={`Post image ${index + 1}`}
                 style={{
                   width: '100%',
