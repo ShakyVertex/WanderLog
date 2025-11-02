@@ -2,6 +2,18 @@
 
 A minimalist UGC platform where users can anonymously share posts with text and images. Built with React + MongoDB.
 
+## 🌍 Live Demo
+
+**Demo URL**: [http://8.221.125.31](http://8.221.125.31)
+
+Experience WanderLog in action! The demo deployment showcases:
+- Three-tab navigation (Square/Create New/About)
+- Anonymous post creation with image uploads
+- Real-time post display and interaction
+- Complete project documentation
+
+*Note: This is a test deployment for educational purposes.*
+
 ## Features
 
 - Anonymous posting (no login system)
