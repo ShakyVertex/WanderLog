@@ -90,6 +90,16 @@ set -e
 echo '🔄 Starting server update...'
 cd $PROJECT_DIR || exit 1
 
+# Configure backend .env file first
+echo '🔧 Configuring backend environment...'
+cd backend
+cat > .env << 'EOF'
+MONGODB_URI=mongodb://127.0.0.1:27017/wanderlog
+PORT=5001
+EOF
+echo '✅ Backend .env configured'
+cd ..
+
 # Run the update script
 if [ -f 'update.sh' ]; then
     chmod +x update.sh
