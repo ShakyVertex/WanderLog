@@ -169,11 +169,16 @@ log "MongoDB status: $(systemctl is-active mongod 2>/dev/null || echo "unknown")
 log "🧪 Testing application..."
 HEALTH_CHECK="000"
 for i in {1..3}; do
-    HEALTH_CHECK=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/api/posts 2>/dev/null || echo "000")
-    if [ "$HEALTH_CHECK" = "200" ]; then
+    # Test backend health endpoint first
+    BACKEND_HEALTH=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5001/api/health 2>/dev/null || echo "000")
+    # Test frontend API proxy
+    FRONTEND_HEALTH=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/api/posts 2>/dev/null || echo "000")
+    
+    if [ "$BACKEND_HEALTH" = "200" ] && [ "$FRONTEND_HEALTH" = "200" ]; then
+        HEALTH_CHECK="200"
         break
     fi
-    log "⏳ Health check attempt $i failed, retrying in 3 seconds..."
+    log "⏳ Health check attempt $i - Backend: $BACKEND_HEALTH, Frontend: $FRONTEND_HEALTH - retrying in 3 seconds..."
     sleep 3
 done
 
