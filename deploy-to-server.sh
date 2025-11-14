@@ -6,10 +6,7 @@
 set -e
 
 # Server configuration
-SERVER_IP="8.221.125.31"
-SERVER_USER="root"
-SERVER_PASSWORD="Lyqlah5577##"
-PROJECT_DIR="/opt/WanderLog"
+# This is a huge security risk. These should never be deployed to github
 
 # Colors for output
 RED='\033[0;31m'
